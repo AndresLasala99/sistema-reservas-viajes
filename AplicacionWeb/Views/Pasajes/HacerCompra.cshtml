@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "HacerCompra";
+}
+
+<h1>Comprar Pasaje</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+
+    <br />
+
+    <div class="border p-4 rounded shadow-sm" style="max-width: 600px;">
+        <p><strong>Código de vuelo:</strong> @ViewBag.Vuelo.Codigo</p>
+        <p><strong>Aeropuerto de Salida:</strong> @ViewBag.Vuelo.Ruta.Salida.Iata</p>
+        <p><strong>Aeropuerto de Llegada:</strong> @ViewBag.Vuelo.Ruta.Llegada.Iata</p>
+        <p><strong>Modelo del Avion:</strong> @ViewBag.Vuelo.Avion.Modelo</p>
+        <p><strong>Frecuencia de vuelo:</strong> @ViewBag.Vuelo.ObtenerDiasFrecuencia()</p>
+        <p><strong>Costo por asiento:</strong> @ViewBag.Vuelo.CostoPorAsiento.ToString("F2")</p>
+    </div>
+
+    <br />
+
+    <form method="post" action="/pasajes/hacercompra">
+        <input type="text" value="@ViewBag.Vuelo.Codigo" name="codigoVuelo" class="form-control" id="inputCodigo" hidden />
+        <div class="mb-3">
+            <label class="form-label" for="inputFecha">Fecha</label>
+            <input type="date" placeholder="Fecha" name="fecha" class="form-control" id="inputFecha" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="inputEquipaje">Equipaje</label>
+            <select name="equipaje" id="inputEquipaje" class="form-control">
+                <option value="LIGHT">Light</option>
+                <option value="CABINA">Cabina</option>
+                <option value="BODEGA">Bodega</option>
+            </select>
+        </div>
+        <input type="submit" value="Hacer compra" class="btn btn-primary" />
+    </form>

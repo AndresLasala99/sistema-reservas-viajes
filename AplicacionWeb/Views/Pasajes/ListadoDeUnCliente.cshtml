@@ -1,0 +1,37 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "ListadoDeUnCliente";
+}
+
+<h1>Mis pasajes comprados</h1>
+
+@if (ViewBag.ListadoDeUnCliente == null || ViewBag.ListadoDeUnCliente.Count == 0)
+{
+    <div class="alert alert-danger">No hay pasajes.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Código de Vuelo</th>
+                <th>Fecha</th>
+                <th>Ruta (Salida - Llegada)</th>
+                <th>Tipo de Equipaje</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Pasaje p in ViewBag.ListadoDeUnCliente)
+            {
+                <tr>
+                    <td>@p.Vuelo.Codigo</td>
+                    <td>@p.Fecha.ToShortDateString()</td>
+                    <td>@p.Vuelo.Ruta.Salida.Iata - @p.Vuelo.Ruta.Llegada.Iata</td>
+                    <td>@p.TipoEquipaje</td>
+                    <td>@p.Precio.ToString("F2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if(Context.Session.GetString("correo") == null)
+    {
+        <h1 class="display-4">Bienvenido Anónimo</h1>
+    }
+    else
+    {
+        <h1 class="display-4">Bienvenido @Context.Session.GetString("correo")</h1>
+    }
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

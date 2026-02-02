@@ -1,0 +1,51 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "Modificar";
+}
+
+@if (ViewBag.Usuario is Ocasional o)
+{
+    <h1>Modificar Cliente Ocasional</h1>
+    <br />
+    <p><strong>Nombre:</strong> @o.Nombre</p>
+    <p><strong>Cédula:</strong> @o.Cedula</p>
+    <p><strong>Correo:</strong> @o.Correo</p>
+    <p><strong>Nacionalidad:</strong> @o.Nacionalidad</p>
+    <form action="/usuarios/Modificar" method="post">
+        <input type="text" value="@ViewBag.Usuario.Cedula" name="cedula" hidden />
+        <label><strong>Regalo:</strong></label>
+        <select name="nuevoRegalo">
+            @if (o.Regalo)
+            {
+                <option value="true" selected>Sí</option>
+                <option value="false">No</option>
+            }
+            else
+            {
+                <option value="true">Sí</option>
+                <option value="false" selected>No</option>
+            }
+        </select>
+        <input type="submit" value="Modificar" class="btn btn-primary" />
+    </form>
+}
+
+@if (ViewBag.Usuario is Premium p)
+{
+    <h1>Modificar Cliente Premium</h1>
+    <br />
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+    <p><strong>Nombre:</strong> @p.Nombre</p>
+    <p><strong>Cédula:</strong> @p.Cedula</p>
+    <p><strong>Correo:</strong> @p.Correo</p>
+    <p><strong>Nacionalidad:</strong> @p.Nacionalidad</p>
+    <form action="/usuarios/Modificar" method="post">
+        <label><strong>Puntos:</strong></label>
+        <input type="text" value="@ViewBag.Usuario.Cedula" name="cedula" hidden />
+        <input type="text" value="@ViewBag.Usuario.Puntos" name="nuevoPuntos" />
+        <input type="submit" value="Modificar" class="btn btn-primary" />
+    </form>
+}

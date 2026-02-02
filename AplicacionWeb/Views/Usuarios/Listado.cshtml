@@ -1,0 +1,91 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "Listado";
+}
+
+<h1>Listado de Clientes</h1>
+
+<br />
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+
+@if (ViewBag.Listado == null || ViewBag.Listado.Count == 0)
+{
+    <div class="alert alert-danger">No hay usuarios.</div>
+}
+else
+{
+    <h2>Clientes Premium</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Puntos</th>
+                <th>Editar Puntos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Cliente c in ViewBag.Listado)
+            {
+                if (c is Premium p)
+                {
+                    <tr>
+                        <td>@p.Correo</td>
+                        <td>@p.Nombre</td>
+                        <td>@p.Cedula</td>
+                        <td>@p.Puntos puntos</td>
+                        <td><a href="/usuarios/modificar?cedula=@p.Cedula" class="btn btn-sm btn-primary">Modificar</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <br />
+
+    <h2>Clientes Ocasionales</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Regalo</th>
+                <th>Editar Regalo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Cliente c in ViewBag.Listado)
+            {
+                if (c is Ocasional o)
+                {
+                    <tr>
+                        <td>@o.Correo</td>
+                        <td>@o.Nombre</td>
+                        <td>@o.Cedula</td>
+                        @if (o.Regalo)
+                        {
+                        <td>SI</td>
+                        }
+                        else
+                        {
+                        <td>NO</td>
+                        }
+                        <td><a href="/usuarios/modificar?cedula=@o.Cedula" class="btn btn-sm btn-primary">Modificar</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

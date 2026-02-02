@@ -1,0 +1,41 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "Listado";
+}
+
+<h1>Pasajes Comprados</h1>
+
+<br />
+
+@if (ViewBag.Listado == null || ViewBag.Listado.Count == 0)
+{
+    <div class="alert alert-danger">No hay pasajes.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Vuelo</th>
+                <th>Fecha</th>
+                <th>Ruta (Salida - Llegada)</th>
+                <th>Tipo de Equipaje</th>
+                <th>Precio</th>
+                <th>Correo del cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Pasaje p in ViewBag.Listado)
+            {
+                <tr>
+                    <td>@p.Vuelo.Codigo</td>
+                    <td>@p.Fecha.ToShortDateString()</td>
+                    <td>@p.Vuelo.Ruta.Salida.Iata - @p.Vuelo.Ruta.Llegada.Iata</td>
+                    <td>@p.TipoEquipaje</td>
+                    <td>@p.Precio.ToString("F2")</td><!-- Con ayuda de chatGPT se usó .ToString("F2") para que solo aparezca dos números despues de la coma -->
+                    <td>@p.Cliente.Correo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

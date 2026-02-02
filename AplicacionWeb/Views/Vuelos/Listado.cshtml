@@ -1,0 +1,64 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "Listado";
+}
+
+<h1>Vuelos</h1>
+
+<br />
+
+<form method="get" action="/vuelos/listado">
+    <input type="text" placeholder="Ingrese código IATA" name="iata" />
+    <input class="btn btn-success btn-sm me-2" type="submit" value="Filtrar" />
+</form>
+
+<a href="/vuelos/listado" class="btn btn-secondary btn-sm mt-2">Mostrar todos</a>
+
+<br />
+
+@if(TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+
+@if(ViewBag.Listado == null || ViewBag.Listado.Count == 0)
+{
+    <div class="alert alert-danger">No hay vuelos.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Salida</th>
+                <th>Llegada</th>
+                <th>Avion</th>
+                <th>Frecuencia por semana</th>
+                <th>Costo por asiento</th>
+                <th>Comprar Pasaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Vuelo v in ViewBag.Listado)
+            {
+                <tr>
+                    <td>@v.Codigo</td>
+                    <td>@v.Ruta.Salida.Iata</td>
+                    <td>@v.Ruta.Llegada.Iata</td>
+                    <td>@v.Avion.Modelo</td>
+                    <td>@v.ObtenerDiasFrecuencia() (@v.Frecuencia.Count)</td>
+                    <td>@v.ObtenerPrecioCostoPorAsiento().ToString("F2")</td>
+                    @if (Context.Session.GetString("rol") == "Cliente")
+                    {
+                        <td><a href="/pasajes/hacerCompra?codigoVuelo=@v.Codigo" class="btn btn-sm btn-primary">Comprar</a></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

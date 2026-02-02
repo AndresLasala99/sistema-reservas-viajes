@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "AltaOcasional";
+}
+
+<h1>Registrarse como Cliente</h1>
+
+@if(ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<br />
+
+<form action="/usuarios/AltaOcasional" method="post">
+    <div class="mb-3">
+        <label for="inputEmail" class="form-label">Correo</label>
+        <input type="email" placeholder="Email" name="correo" class="form-control" id="inputCorreo" value="@ViewBag.Correo"/>
+    </div>
+    <div class="mb-3">
+        <label for="inputPass" class="form-label">Contraseña</label>
+        <input type="password" placeholder="Contraseña" name="pass" class="form-control" id="inputPass" />
+    </div>
+    <div class="mb-3">
+        <label for="inputCedula" class="form-label">Cédula</label>
+        <input type="text" placeholder="Cédula" name="cedula" class="form-control" id="inputCedula" value="@ViewBag.Cedula" />
+    </div>
+    <div class="mb-3">
+        <label for="inputNombre" class="form-label">Nombre</label>
+        <input type="text" placeholder="Nombre" name="nombre" class="form-control" id="inputNombre" value="@ViewBag.Nombre" />
+    </div>
+    <div class="mb-3">
+        <label for="inputNacionalidad" class="form-label">Nacionalidad</label>
+        <input type="text" placeholder="Nacionalidad" name="nacionalidad" class="form-control" id="inputNacionalidad" value="@ViewBag.Nacionalidad" />
+    </div>
+    <input type="submit" value="Crear" class="btn btn-success mt-3" />
+</form>

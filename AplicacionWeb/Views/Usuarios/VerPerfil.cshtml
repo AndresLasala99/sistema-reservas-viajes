@@ -1,0 +1,20 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "VerPerfil";
+}
+
+<h1>Mi Perfil</h1>
+
+<br />
+
+<div class="border p-4 rounded shadow-sm" style="max-width: 600px;">
+    <p><strong>Nombre:</strong> @ViewBag.Cliente.Nombre</p>
+    <p><strong>Cédula:</strong> @ViewBag.Cliente.Cedula</p>
+    <p><strong>Correo:</strong> @ViewBag.Cliente.Correo</p>
+    <p><strong>Nacionalidad:</strong> @ViewBag.Cliente.Nacionalidad</p>
+
+    @if (ViewBag.Cliente is Premium p)
+    {
+        <p><strong>Puntos:</strong> @p.Puntos</p>
+    }
+</div>
